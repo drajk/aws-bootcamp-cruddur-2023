@@ -5,7 +5,7 @@
 
 Created a budget for 10$ spent.
 
-![Screenshot of the Budget Alarm](!assets/week0-budget-alarm.png)
+![Screenshot of the Budget Alarm](assets/week0-budget-alarm.png)
 
 
 ## Logical Architectural diagram
