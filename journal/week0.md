@@ -1,13 +1,17 @@
 # Week 0 — Billing and Architecture
 
 
-## Add billing and spend alerts in my AWS account.
+## Billing and Bugdet Alarms
+
+Created a budget for 10$ spent.
+
+[Screenshot of the Budget Alarm](assets/week0-budget-alarm.png)
 
 
-## Logical Architectural diagrams.
+## Logical Architectural diagram
 
 
-## Conceptual architectural diagrams.
+## Conceptual Architectural diagram
 
 
 ## CI/CD pipeline diagram on lucid charts (for extra points :) )
