@@ -15,19 +15,24 @@ Here are JSON configuration files for reference
 
 ### Logical Architectural diagram
 
-I recreated architecture diagram on lucid charts.
+I first created a napkin design and then recreated the architecture diagram on Lucid charts.
 
-- ![Logical diagram](assets/week0/logical-architecture.png)
+I added WAF in front of frontend application and a API gateway in front of the API. 
 
-Here is lucidcharts commenatable link.
+Please note: I will update Lucid charts in coming weeks to find correct place of cloudfront and API Gateway. 
+
+- ![Napkin Design](assets/week0/napkin-logical-design.jpg)
+
+- ![Logical Diagram](assets/week0/logical-architecture.png)
+
+Here is lucidcharts commentable link.
 [Lucidcharts commentable link](https://lucid.app/lucidchart/32957188-ff26-44b2-94a1-c993ba6a9dba/edit?viewport_loc=-53%2C-4%2C2317%2C1200%2C0_0&invitationId=inv_093d5a58-9ec3-41d5-814c-35e1aab6e0b1)
 
 ## Optional home work
 
-### CI/CD pipeline diagram on lucid charts (for extra points :) )
+### CI/CD pipeline diagram on lucid charts
 
-
-- ![CI/CD diagram](assets/week0/ci-cd-pipeline.png)
+![CI/CD diagram](assets/week0/ci-cd-pipeline.png)
 
 1. Code is pushed to feature branch or merged using a pull request to release, master or develop branch.
 
