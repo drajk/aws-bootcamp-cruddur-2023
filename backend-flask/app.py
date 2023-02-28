@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask import jsonify
 from flask_cors import CORS, cross_origin
 import os
 
@@ -18,6 +19,9 @@ app = Flask(__name__)
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
 origins = [frontend, backend]
+
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 cors = CORS(
   app, 
   resources={r"/api/*": {"origins": origins}},
@@ -26,7 +30,13 @@ cors = CORS(
   methods="OPTIONS,GET,HEAD,POST"
 )
 
+@app.route("/api/health", methods=['GET'])
+@cross_origin()
+def health():
+    return jsonify(status="Ok!"), 500
+
 @app.route("/api/message_groups", methods=['GET'])
+@cross_origin()
 def data_message_groups():
   user_handle  = 'andrewbrown'
   model = MessageGroups.run(user_handle=user_handle)
@@ -36,6 +46,7 @@ def data_message_groups():
     return model['data'], 200
 
 @app.route("/api/messages/@<string:handle>", methods=['GET'])
+@cross_origin()
 def data_messages(handle):
   user_sender_handle = 'andrewbrown'
   user_receiver_handle = request.args.get('user_reciever_handle')
@@ -67,11 +78,13 @@ def data_home():
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
+@cross_origin()
 def data_notifications():
   data = NotificationActivities.run()
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
+@cross_origin()
 def data_handle(handle):
   model = UserActivities.run(handle)
   if model['errors'] is not None:
@@ -80,6 +93,7 @@ def data_handle(handle):
     return model['data'], 200
 
 @app.route("/api/activities/search", methods=['GET'])
+@cross_origin()
 def data_search():
   term = request.args.get('term')
   model = SearchActivities.run(term)
@@ -103,6 +117,7 @@ def data_activities():
   return
 
 @app.route("/api/activities/<string:activity_uuid>", methods=['GET'])
+@cross_origin()
 def data_show_activity(activity_uuid):
   data = ShowActivity.run(activity_uuid=activity_uuid)
   return data, 200

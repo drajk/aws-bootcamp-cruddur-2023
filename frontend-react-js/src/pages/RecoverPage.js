@@ -9,8 +9,8 @@ export default function RecoverPage() {
   const [password, setPassword] = React.useState('');
   const [passwordAgain, setPasswordAgain] = React.useState('');
   const [code, setCode] = React.useState('');
-  const [errors, setErrors] = React.useState('');
-  const [formState, setFormState] = React.useState('send_code');
+  const [errors] = React.useState('');
+  const [formState] = React.useState('send_code');
 
   const onsubmit_send_code = async (event) => {
     event.preventDefault();
@@ -115,13 +115,13 @@ export default function RecoverPage() {
     }
 
   let form;
-  if (formState == 'send_code') {
+  if (formState === 'send_code') {
     form = send_code()
   }
-  else if (formState == 'confirm_code') {
+  else if (formState === 'confirm_code') {
     form = confirm_code()
   }
-  else if (formState == 'success') {
+  else if (formState === 'success') {
     form = success()
   }
 
