@@ -56,5 +56,5 @@ This can be verified using following files
 - Moved Postgres username and password to environment variables so that they are secure and are not available in GIT.
 - Secrets can later be moved to AWS Parameter store or Secrets manager.
 
-![Gitpod environment variables(assets/week1/gitpod-env-variables.png)
+![Gitpod environment variables](assets/week1/gitpod-env-variables.png)
 
