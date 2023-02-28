@@ -33,7 +33,7 @@ cors = CORS(
 @app.route("/api/health", methods=['GET'])
 @cross_origin()
 def health():
-    return jsonify(status="Ok!"), 500
+    return jsonify(status="Ok!"), 200
 
 @app.route("/api/message_groups", methods=['GET'])
 @cross_origin()

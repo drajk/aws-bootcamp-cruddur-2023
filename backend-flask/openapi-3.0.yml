@@ -6,6 +6,22 @@ info:
 servers:
   - url: https://api.server.test/v1
 paths:
+  /api/health:
+    get:
+      description: 'Returns 200 OK when service is running healthy'
+      tags:
+        - activities
+      responses:
+        '200':
+          description: 'Health endpoint for the service'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+
   /api/activities/home:
     get:
       description: 'Return a feed of activity based on all users'
@@ -13,7 +29,7 @@ paths:
         - activities
       responses:
         '200':
-          description: Returns an array of activities"
+          description: "Returns an array of activities"
           content:
             application/json:
               schema:
