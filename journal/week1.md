@@ -10,7 +10,7 @@ This can be verified using following files
 - [Frontend - Docker](../frontend-react-js/Dockerfile)
 - [Docker compose](../docker-compose.yml)
 
-### Run Containerise backend and frontned, explore codebase and added new API endpoint and a new UI page for notifications.
+### Containerise backend and frontend and add more features.
 
 - Explored codebase and solved lint errors, here are few example of lint fixes
 
@@ -20,11 +20,11 @@ This can be verified using following files
 
 ![Lint fixes # 3](assets/week1/lint-3.png)
 
-- Add UI and Notification endpoint and used it the UI.
+- Added Notification endpoint and used it the React SPA.
 
 ![Crudder in local (gitpod) environment](assets/week1/working-crudder-after-lint.png)
 
-### Setup docker compose to add local dynamo and Postgres database.
+### Setup docker compose to add local Dynamo DB and Postgres DB.
 
 This can be verified using following files
 
