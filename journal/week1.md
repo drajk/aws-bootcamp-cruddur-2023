@@ -6,9 +6,9 @@
 
 This can be verified using following files
 
-- [Backend - Docker](../backend-flask/Dockerfile)
-- [Frontend - Docker](../frontend-react-js/Dockerfile)
-- [Docker compose](../docker-compose.yml)
+[Backend - Docker](../backend-flask/Dockerfile)
+[Frontend - Docker](../frontend-react-js/Dockerfile)
+[Docker compose](../docker-compose.yml)
 
 ### Containerise backend and frontend and add more features.
 
@@ -28,7 +28,7 @@ This can be verified using following files
 
 This can be verified using following files
 
-- [Docker compose](../docker-compose.yml)
+[Docker compose](../docker-compose.yml)
 
 ### Learn about other CDEs like Git workspaces and AWS Cloud9.
 
@@ -40,7 +40,7 @@ This can be verified using following files
 - This makes the installation and other bootstrap commands more maintainable and readable. 
 - Here is the link to bash script
 
-![init.sh](../backend-flask/init.sh)
+[init.sh](../backend-flask/init.sh)
 
 ### Added docker health-check for backend python api.
 
@@ -56,5 +56,5 @@ This can be verified using following files
 - Moved Postgres username and password to environment variables so that they are secure and are not available in GIT.
 - Secrets can later be moved to AWS Parameter store or Secrets manager.
 
-![CI/CD diagram](assets/week1/gitpod-env-variables.png)
+![Gitpod environment variables(assets/week1/gitpod-env-variables.png)
 
