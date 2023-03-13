@@ -1,8 +1,13 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
-from flask_cors import CORS, cross_origin
 import os
+import sys
+from flask_cors import CORS, cross_origin
+
+# Cognito --
+from flask_awscognito import AWSCognitoAuthentication
+
 import watchtower
 import logging
 import rollbar
@@ -56,6 +61,9 @@ xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
 
 app = Flask(__name__)
 
+app.config["AWS_COGNITO_USER_POOL_ID"] = os.getenv("AWS_COGNITO_USER_POOL_ID")
+app.config["AWS_COGNITO_USER_POOL_CLIENT_ID"] = os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID")
+
 # -- HONEYCOMB --
 # Initialize automatic instrumentation with Flask
 FlaskInstrumentor().instrument_app(app)
@@ -74,8 +82,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(
   app, 
   resources={r"/api/*": {"origins": origins}},
-  expose_headers="location,link",
   allow_headers="content-type,if-modified-since",
+  headers=['Content-Type', 'Authorization'], 
+  expose_headers='Authorization,location,link',
   methods="OPTIONS,GET,HEAD,POST"
 )
 
@@ -144,9 +153,13 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
+@xray_recorder.capture("activities_home")
+@aws_auth.authentication_required
 @cross_origin()
 def data_home():
   data = HomeActivities.run(logger=LOGGER)
+  claims = aws_auth.claims
+  app.logger.debug(claims)
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])

@@ -4,4 +4,6 @@
 
 ## User AWS cognito using AWS Amplify in frontend react codebase
 
+## Implement Signin, Signout, Join and Forget Password in React codebase
+
 ## 
