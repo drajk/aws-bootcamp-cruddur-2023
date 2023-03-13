@@ -6,7 +6,11 @@
 ## Setup react frontend to use AWS cognito.
 - Setup react frontend to use AWS cognito.
 - Implemented Signin, Signout, Join and Forget Password in React codebase
+
+- [Authenticated view]
 ![Authenticated view](assets/week3/authenticated.png)
+
+- [Unauthenticated view]
 ![Unauthenticated view](assets/week3/unauthenticated.png)
 ![Password reset](assets/week3/password-reset.png)
 
