@@ -4,8 +4,8 @@
 
 ## Configure backend flask to send logs to Honeycomb.
 
-[Backend - Dockerfile](../backend-flask/Dockerfile)
-[Backend - app.py](../backend-flask/app.py)
+- [Backend - Dockerfile](../backend-flask/Dockerfile)
+- [Backend - app.py](../backend-flask/app.py)
 
 ## Add custom fields and queries logs on Honeycomb.
 ![Honeycomb](assets/week2/honeycomb.png)
