@@ -20,3 +20,10 @@
 ## Configured backend flask to use Rollbar.
 
 ![Rollbar](assets/week2/rollbar.png)
+
+## Optional homework
+
+## Set up Honeycomb and Rollbar in frontend
+
+I will be setting up Honeycomb and Rollbar in React codebase in week 3. 
+Apologies for pushing it to the next week as I was running a little behind.
