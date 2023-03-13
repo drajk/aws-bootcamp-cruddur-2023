@@ -23,8 +23,7 @@ from services.show_activity import *
 from time import strftime
 from flask import got_request_exception
 
-# -- Cognito --
-from lib.cognito_jwt_verify import CognitoJwtToken, extract_access_token, TokenVerifyError
+from middlewares.auth_cognito import auth_cognito
 
 # Configuring Logger to Use CloudWatch
 LOGGER = logging.getLogger(__name__)
@@ -60,12 +59,6 @@ xray_url = os.getenv("AWS_XRAY_URL")
 xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
 
 app = Flask(__name__)
-
-cognito_jwt_token = CognitoJwtToken(
-  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
-  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
-  region=os.getenv("AWS_DEFAULT_REGION")
-)
 
 # -- HONEYCOMB --
 # Initialize automatic instrumentation with Flask
@@ -158,20 +151,9 @@ def data_create_message():
 @app.route("/api/activities/home", methods=['GET'])
 @xray_recorder.capture('activities_home')
 @cross_origin()
-def data_home():
-  access_token = extract_access_token(request.headers)
-  try:
-    claims = cognito_jwt_token.verify(access_token)
-    # authenicatied request
-    app.logger.debug("authenicated")
-    app.logger.debug(claims)
-    app.logger.debug(claims['username'])
-    data = HomeActivities.run(cognito_user_id=claims['username'])
-  except TokenVerifyError as e:
-    # unauthenicatied request
-    app.logger.debug(e)
-    app.logger.debug("unauthenicated")
-    data = HomeActivities.run()
+@auth_cognito
+def data_home(current_user):
+  data = HomeActivities.run(current_user)
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])

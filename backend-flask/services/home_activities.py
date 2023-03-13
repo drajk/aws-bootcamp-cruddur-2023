@@ -4,7 +4,7 @@ from opentelemetry import trace
 tracer = trace.get_tracer("home.activities")
 
 class HomeActivities:
-  def run(cognito_user_id=None):
+  def run(current_user):
     # logger.info('Hello from  /api/activities/home')
 
     with tracer.start_as_current_span("home-activities-mock-data"):
@@ -53,7 +53,7 @@ class HomeActivities:
       }
     ]
 
-    if cognito_user_id != None:
+    if current_user["authenticated"]:
         extra_crud = {
           'uuid': '248959df-3079-4947-b847-9e0892d1bab3',
           'handle':  'Lore',

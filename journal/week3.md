@@ -6,4 +6,7 @@
 
 ## Implement Signin, Signout, Join and Forget Password in React codebase
 
+## Configure jwt token verification in backend flask
+
+
 ## 
