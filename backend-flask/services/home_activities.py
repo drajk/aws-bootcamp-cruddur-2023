@@ -4,8 +4,8 @@ from opentelemetry import trace
 tracer = trace.get_tracer("home.activities")
 
 class HomeActivities:
-  def run(logger):
-    logger.info('Hello from  /api/activities/home')
+  def run(cognito_user_id=None):
+    # logger.info('Hello from  /api/activities/home')
 
     with tracer.start_as_current_span("home-activities-mock-data"):
 
@@ -52,6 +52,18 @@ class HomeActivities:
         'replies': []
       }
     ]
+
+    if cognito_user_id != None:
+        extra_crud = {
+          'uuid': '248959df-3079-4947-b847-9e0892d1bab3',
+          'handle':  'Lore',
+          'message': 'My dear brother, it the humans that are the problem',
+          'created_at': (now - timedelta(hours=1)).isoformat(),
+          'expires_at': (now + timedelta(hours=12)).isoformat(),
+          'likes': 1042,
+          'replies': []
+        }
+        results.insert(0,extra_crud)
 
     span.set_attribute("app.results_length", len(results))
 

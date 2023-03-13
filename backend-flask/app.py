@@ -5,9 +5,6 @@ import os
 import sys
 from flask_cors import CORS, cross_origin
 
-# Cognito --
-from flask_awscognito import AWSCognitoAuthentication
-
 import watchtower
 import logging
 import rollbar
@@ -25,6 +22,9 @@ from services.create_message import *
 from services.show_activity import *
 from time import strftime
 from flask import got_request_exception
+
+# -- Cognito --
+from lib.cognito_jwt_verify import CognitoJwtToken, extract_access_token, TokenVerifyError
 
 # Configuring Logger to Use CloudWatch
 LOGGER = logging.getLogger(__name__)
@@ -61,8 +61,11 @@ xray_recorder.configure(service='Cruddur', dynamic_naming=xray_url)
 
 app = Flask(__name__)
 
-app.config["AWS_COGNITO_USER_POOL_ID"] = os.getenv("AWS_COGNITO_USER_POOL_ID")
-app.config["AWS_COGNITO_USER_POOL_CLIENT_ID"] = os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID")
+cognito_jwt_token = CognitoJwtToken(
+  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
+  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+  region=os.getenv("AWS_DEFAULT_REGION")
+)
 
 # -- HONEYCOMB --
 # Initialize automatic instrumentation with Flask
@@ -153,13 +156,22 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
-@xray_recorder.capture("activities_home")
-@aws_auth.authentication_required
+@xray_recorder.capture('activities_home')
 @cross_origin()
 def data_home():
-  data = HomeActivities.run(logger=LOGGER)
-  claims = aws_auth.claims
-  app.logger.debug(claims)
+  access_token = extract_access_token(request.headers)
+  try:
+    claims = cognito_jwt_token.verify(access_token)
+    # authenicatied request
+    app.logger.debug("authenicated")
+    app.logger.debug(claims)
+    app.logger.debug(claims['username'])
+    data = HomeActivities.run(cognito_user_id=claims['username'])
+  except TokenVerifyError as e:
+    # unauthenicatied request
+    app.logger.debug(e)
+    app.logger.debug("unauthenicated")
+    data = HomeActivities.run()
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
@@ -169,6 +181,7 @@ def data_notifications():
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
+@xray_recorder.capture('activities_users')
 @cross_origin()
 def data_handle(handle):
   model = UserActivities.run(handle)
