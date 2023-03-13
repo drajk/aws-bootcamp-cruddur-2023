@@ -26,5 +26,6 @@
 
 ## Add authentication as a middleware
 - [Auth Middleware](../backend-flask/middlewares/auth_cognito.py)
-- [Example usage in home activities](https://github.com/drajk/aws-bootcamp-cruddur-2023/blob/main/backend-flask/app.py#L154)
+- [Sample usage] ![Sample usage](assets/week3/sample-middleware-usage.png)
+
  
