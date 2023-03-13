@@ -101,8 +101,8 @@ export default function SignupPage() {
             </div>
           </div>
 
-          {errors && <div className='errors'>{errors.message}</div>}
-          
+          {errors && <div className='errors'>{errors}</div>}
+
           <div className='submit'>
             <button type='submit'>Sign Up</button>
           </div>

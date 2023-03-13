@@ -23,7 +23,7 @@ export default function SigninPage() {
         })
         .catch(err => { 
           console.log('Error!', {err});
-          setErrors(new Error(err.message)); 
+          setErrors(err.message); 
       });
     } catch (error) {
       if (error.code == 'UserNotConfirmedException') {
@@ -71,7 +71,7 @@ export default function SigninPage() {
               />
             </div>
           </div>
-          {errors && <div className='errors'>{errors.message}</div>}
+          {errors && <div className='errors'>{errors}</div>}
           <div className='submit'>
             <Link to="/forgot" className="forgot-link">Forgot Password?</Link>
             <button type='submit'>Sign In</button>

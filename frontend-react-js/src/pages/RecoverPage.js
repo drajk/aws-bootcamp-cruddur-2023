@@ -65,7 +65,7 @@ export default function RecoverPage() {
         </div>
       </div>
 
-      {errors && <div className='errors'>{errors.message}</div>}
+      {errors && <div className='errors'>{errors}</div>}
       
       <div className='submit'>
         <button type='submit'>Send Recovery Code</button>

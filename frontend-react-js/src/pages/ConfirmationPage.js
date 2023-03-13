@@ -94,8 +94,8 @@ export default function ConfirmationPage() {
             </div>
           </div>
 
-          {errors && <div className='errors'>{errors.message}</div>}
-          
+          {errors && <div className='errors'>{errors}</div>}
+
           <div className='submit'>
             <button type='submit'>Confirm Email</button>
           </div>
