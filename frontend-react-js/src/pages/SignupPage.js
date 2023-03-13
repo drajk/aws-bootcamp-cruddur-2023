@@ -52,10 +52,6 @@ export default function SignupPage() {
     setPassword(event.target.value);
   }
 
-  if (errors){
-    errors = <div className='errors'>{errors}</div>;
-  }
-
   return (
     <article className='signup-article'>
       <div className='signup-info'>
@@ -104,7 +100,9 @@ export default function SignupPage() {
               />
             </div>
           </div>
-          {errors}
+
+          {errors && <div className='errors'>{errors.message}</div>}
+          
           <div className='submit'>
             <button type='submit'>Sign Up</button>
           </div>

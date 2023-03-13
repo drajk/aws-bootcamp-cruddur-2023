@@ -20,13 +20,16 @@ export default function SigninPage() {
           localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
           window.location.href = "/"
         })
-        .catch(err => { console.log('Error!', err) });
+        .catch(err => { 
+          console.log('Error!', {err});
+          setErrors(new Error(err.message)); 
+      });
     } catch (error) {
       if (error.code == 'UserNotConfirmedException') {
         window.location.href = "/confirm"
       }
-      setErrors('');
-      (error.message)
+      console.log(error);
+      setErrors(error.message)
     }
     return false
   }
@@ -36,10 +39,6 @@ export default function SigninPage() {
   }
   const password_onchange = (event) => {
     setPassword(event.target.value);
-  }
-
-  if (errors){
-    errors = <div className='errors'>{cognitoErrors}</div>;
   }
 
   return (
@@ -71,7 +70,7 @@ export default function SigninPage() {
               />
             </div>
           </div>
-          {errors}
+          {errors && <div className='errors'>{errors.message}</div>}
           <div className='submit'>
             <Link to="/forgot" className="forgot-link">Forgot Password?</Link>
             <button type='submit'>Sign In</button>
