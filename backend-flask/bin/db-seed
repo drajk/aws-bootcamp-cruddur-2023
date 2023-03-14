@@ -6,8 +6,15 @@ NO_COLOR='\033[0m'
 LABEL="db-seed"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
+if [ "$1" = "prod" ]; then
+  echo "Running in production mode"
+  URL=$PROD_POSTGRES_CONNECTION_URL
+else
+  URL=$POSTGRES_CONNECTION_URL
+fi
+
 seed_path="$(realpath .)/db/seed.sql"
 
 echo $seed_path
 
-psql $POSTGRES_CONNECTION_URL cruddur < $seed_path
+psql $URL cruddur < $seed_path

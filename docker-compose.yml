@@ -16,6 +16,7 @@ services:
       AWS_COGNITO_USER_POOL_ID: "ap-southeast-2_pgFtYFA6U"
       AWS_COGNITO_USER_POOL_CLIENT_ID: "7m7263nhomph60dtg6c1n1c9s6"
       AWS_COGNITO_USER_POOL_CLIENT_SECRET: "7m7263nhomph60dtg6c1n1c9s6"
+      CONNECTION_URL: ${POSTGRES_CONNECTION_URL}
     build: ./backend-flask
     ports:
       - "4567:4567"
